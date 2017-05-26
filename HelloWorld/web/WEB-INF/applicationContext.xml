@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 导入mongodb的配置文件 -->
+    <import resource="mongodb-context.xml"/>
+
+    <bean id="loginAction" class="com.test.action.LoginAction"/>
+
+    <bean id="userService" class="com.test.impl.UserServiceImpl"/>
+
+    <bean id="userDAO" class="com.test.dao.UserDAO"/>
+</beans>
