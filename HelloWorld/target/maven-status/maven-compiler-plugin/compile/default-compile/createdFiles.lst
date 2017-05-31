@@ -1,0 +1,9 @@
+com\test\impl\UserServiceImpl.class
+com\test\domain\UserDO.class
+com\test\action\LoginAction.class
+com\test\action\EmployeeAction.class
+com\test\action\SignController.class
+com\test\dao\UserDAO.class
+com\test\service\UserService.class
+com\test\action\UploadAction.class
+com\test\action\IndexController.class

@@ -6,6 +6,8 @@
     <JAVADOC>
       <root url="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-mongodb/1.7.1.RELEASE/spring-data-mongodb-1.7.1.RELEASE-javadoc.jar!/" />
     </JAVADOC>
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-mongodb/1.7.1.RELEASE/spring-data-mongodb-1.7.1.RELEASE-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

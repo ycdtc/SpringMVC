@@ -14,6 +14,7 @@
     </div>
     <div>
         <button name="login" id="login">登录</button>
+        <button name="register" id="register">注册</button>
     </div>
 </form>
 </body>
@@ -24,13 +25,19 @@
             e.preventDefault();
             $.post(loginUrl, $('#login-form').serialize(), function (data) {
                 console.log(JSON.stringify(data));
-                if(data){
-                    $.post('/employee',data);
-                } else {
-                    alert("fail");
+                if(data.status == 0){
+                    location.href = "/employee/" + data.username;
+                } else if(data){
+                    alert("此帐号还未激活");
                     //location.reload();
-               }
+                } else{
+                    alert("帐号/密码错误");
+                }
             });
+        });
+        $('#register').click(function(e){
+            e.preventDefault();
+            location.href = "/register";
         });
     });
 </script>

@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import com.test.domain.UserDO;
+import com.test.model.User;
 import com.test.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,10 +20,8 @@ public class LoginAction {
 
     @RequestMapping(method = RequestMethod.POST, produces="application/json;charset=UTF-8")
     @ResponseBody
-    public UserDO login(@ModelAttribute("userDO")UserDO userDO) {
-        List<UserDO> result = userService.findUserList(userDO);
-        long count = userService.findUserListForCount(userDO);
-        UserDO findUser = userService.findUser(userDO);
+    public User login(@ModelAttribute("userDO")User user) {
+        User findUser = userService.findUser(user);
         return findUser;
     }
 }
