@@ -39,4 +39,10 @@ public class UserServiceImpl implements UserService {
     public void updateUser(User user) {
         userDAO.updateUser(user);
     }
+
+    public void updateDate(String username, String date) {
+        User user = userDAO.findUser(new User(username));
+        user.setLastSignInDate(date);
+        userDAO.updateUser(user);
+    }
 }

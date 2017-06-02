@@ -25,8 +25,12 @@
             e.preventDefault();
             $.post(loginUrl, $('#login-form').serialize(), function (data) {
                 console.log(JSON.stringify(data));
-                if(data.status == 0){
-                    location.href = "/employee/" + data.username;
+                if(data.status == 0 && data.password == $("#password").val()){
+                    if(data.department != "Human resources") {
+                        location.href = "/employee/" + data.username;
+                    }else{
+                        location.href = "/hr";
+                    }
                 } else if(data){
                     alert("此帐号还未激活");
                     //location.reload();

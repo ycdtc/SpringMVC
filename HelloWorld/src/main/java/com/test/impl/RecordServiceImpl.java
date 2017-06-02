@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 
 @Service("recordService")
-public class RecordImpl implements RecordService {
+public class RecordServiceImpl implements RecordService {
 
     @Resource
     RecordDAO recordDAO;
@@ -24,4 +24,6 @@ public class RecordImpl implements RecordService {
     public void saveRecord(Record record) {
         recordDAO.saveRecord(record);
     }
+
+
 }

@@ -6,17 +6,23 @@
     <title>Title</title>
 </head>
 <body>
-    <h3>welcome,${username}</h3>
-    <label id="messagePrefix">上次打卡时间:${lastSignInDate}</label><br>
-    <button id="signIn">点击此处打卡</button>
-    <input type="text" id="username" value=${username}  hidden="hidden"/>
-    <input type="text" id="lastSignInDate" value=${lastSignInDate}  hidden="hidden"/>
+<h3>welcome,${username}</h3>
+<label id="message">上次打卡时间:${lastSignInDate}</label><br>
+<button id="signIn">点击此处打卡</button>
+<label id="username" hidden="hidden">${username}</label>
+<label id="lastSignInDate" hidden="hidden">${lastSignInDate}</label>
 </body>
 <script type="text/javascript">
     var date;
     var prefix = "";
     $(function () {
+        $("#signIn").attr("disabled",true);
         date = new Date();
+        console.log($("#lastSignInDate").value);
+        console.log($("#lastSignInDate").val());
+        console.log($("#messagePrefix").html());
+        console.log($("#messagePrefix").innerHTML);
+
         if($("lastSignInDate").value == date.toLocaleDateString()){
             $("#signIn").disable();
             prefix = "您今天已经打过卡了<br>";

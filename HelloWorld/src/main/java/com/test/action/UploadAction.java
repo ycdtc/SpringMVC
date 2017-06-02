@@ -37,7 +37,12 @@ public class UploadAction {
             e.printStackTrace();
         }
         User user = new User(username,password,department,request.getContextPath()+"/upload/"+fileName);
-        model.addAttribute("text","简历提交成功，请在三个工作日后重新登录");
-        return "result";
+        if(userService.saveUser(user) == 0){
+            model.addAttribute("text","简历提交成功，请在三个工作日后重新登录");
+            return "result";
+        }else{
+            model.addAttribute("text","简历提交失败");
+            return "result";
+        }
     }
 }

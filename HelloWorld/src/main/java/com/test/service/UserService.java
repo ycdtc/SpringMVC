@@ -13,4 +13,6 @@ public interface UserService {
     int saveUser(User user);
 
     void updateUser(User user);
+
+    void updateDate(String username, String date);
 }

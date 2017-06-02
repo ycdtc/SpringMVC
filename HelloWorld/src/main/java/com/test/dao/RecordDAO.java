@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 public class RecordDAO {
-    private static final String Record_COLLECTION = "record_info";
+    private static final String RECORD_COLLECTION = "record_info";
 
     @Autowired
     @Qualifier("mongoTemplate")
@@ -20,18 +20,18 @@ public class RecordDAO {
     public int findRecordCountByUsername(String username){
         Query query = new Query();
         query.addCriteria(new Criteria("username").is(username));
-        return mongoTemplate.find(query, Record.class, Record_COLLECTION).size();
+        return mongoTemplate.find(query, Record.class, RECORD_COLLECTION).size();
 
     }
 
     public int findRecordCountByDate(String date){
         Query query = new Query();
         query.addCriteria(new Criteria("date").is(date));
-        return mongoTemplate.find(query, Record.class, Record_COLLECTION).size();
+        return mongoTemplate.find(query, Record.class, RECORD_COLLECTION).size();
     }
 
     public void saveRecord(Record record) {
-        mongoTemplate.save(record, Record_COLLECTION);
+        mongoTemplate.save(record, RECORD_COLLECTION);
     }
 
 }

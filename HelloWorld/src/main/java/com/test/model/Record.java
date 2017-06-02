@@ -7,6 +7,11 @@ public class Record {
     private String username;
     private String date;
 
+    public Record(String username, String date) {
+        this.username = username;
+        this.date = date;
+    }
+
     public String getUsername() {
         return username;
     }
