@@ -6,6 +6,7 @@ import java.util.UUID;
 import javax.annotation.Resource;
 
 import com.test.dao.UserDAO;
+import com.test.model.Data;
 import com.test.model.User;
 import com.test.service.UserService;
 import org.springframework.stereotype.Service;
@@ -45,4 +46,25 @@ public class UserServiceImpl implements UserService {
         user.setLastSignInDate(date);
         userDAO.updateUser(user);
     }
+
+    public void updateStatus(String username,int status) {
+        User user = userDAO.findUser(new User(username));
+        user.setStatus(status);
+        userDAO.updateUser(user);
+    }
+
+    public List<User> findResumeList() {
+        return userDAO.findResumeList();
+    }
+
+    public Data getUserDataByDepartment() {
+        String[] departments = new String[]{"Marketing","Sales","Finance","Human resources"};
+        Data data = new Data();
+        for(String department:departments) {
+            data.addName(department);
+            data.addValue(userDAO.findUserCountByDepartment(department));
+        }
+        return data;
+    }
 }
+

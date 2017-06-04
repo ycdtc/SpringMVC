@@ -31,7 +31,7 @@
                     }else{
                         location.href = "/hr";
                     }
-                } else if(data){
+                } else if(data.status == 1){
                     alert("此帐号还未激活");
                     //location.reload();
                 } else{

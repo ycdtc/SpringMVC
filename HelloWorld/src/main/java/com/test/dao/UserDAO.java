@@ -26,6 +26,13 @@ public class UserDAO{
         return userList;
     }
 
+    public List<User> findResumeList() {
+        Query query = new Query();
+        query.addCriteria(new Criteria("status").is(1));
+        List<User> userList = mongoTemplate.find(query,User.class, USER_COLLECTION);
+        return userList;
+    }
+
     public User findUser(User user) {
         Query query = new Query();
         query.addCriteria(new Criteria("username").is(user.getUsername()));
@@ -42,6 +49,13 @@ public class UserDAO{
         tmpUser.setUsername(user.getUsername());
         mongoTemplate.remove(tmpUser,USER_COLLECTION);
         saveUser(user);
+    }
+
+    public Integer findUserCountByDepartment(String department){
+        Query query = new Query();
+        query.addCriteria(new Criteria("department").is(department));
+        List<User> userList = mongoTemplate.find(query,User.class, USER_COLLECTION);
+        return userList.size();
     }
 
 }

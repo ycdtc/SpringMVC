@@ -3,52 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
+    <script  src="../../js/echarts.common.min.js"></script>
     <title>Title</title>
 </head>
 <body>
-<h3>welcome,${username}</h3>
-<label id="message">上次打卡时间:${lastSignInDate}</label><br>
-<button id="signIn">点击此处打卡</button>
-<label id="username" hidden="hidden">${username}</label>
-<label id="lastSignInDate" hidden="hidden">${lastSignInDate}</label>
+<button id="generateCharts">Show Charts</button>
+<button id="generateResumes">View Resume</button>
+<div id="res"></div>
 </body>
-<script type="text/javascript">
-    var date;
-    var prefix = "";
+<script>
     $(function () {
-        $("#signIn").attr("disabled",true);
-        date = new Date();
-        console.log($("#lastSignInDate").value);
-        console.log($("#lastSignInDate").val());
-        console.log($("#messagePrefix").html());
-        console.log($("#messagePrefix").innerHTML);
+        $("#generateCharts").click(function () {
+            $("#res").empty();
+            $("#res").append($("<div id=\"bar\" style=\"width: 600px;height:400px;\"></div>"));
+            $("#res").append($("<div id=\"pie\" style=\"width: 600px;height:400px;\"></div>"));
+            $("#res").append($("<div id=\"line\" style=\"width: 600px;height:400px;\"></div>"));
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(document.getElementById('bar'));
+            // 指定图表的配置项和数据
+            var option = {
+                title: {
+                    text: 'ECharts 入门示例'
+                },
+                legend: {
+                    data:['销量']
+                },
+                xAxis: {
+                    data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+                },
+                yAxis: {},
+                series: [{
+                    name: '销量',
+                    type: 'bar',
+                    data: [5, 20, 36, 10, 10, 20]
+                }]
+            };
+            // 使用刚指定的配置项和数据显示图表。
+            myChart.setOption(option);
 
-        if($("lastSignInDate").value == date.toLocaleDateString()){
-            $("#signIn").disable();
-            prefix = "您今天已经打过卡了<br>";
-        }else{
-            prefix = "点击此处进行打卡<br>";
-        }
-        update();
-        setInterval("update()",1000);
+            var myChart = echarts.init(document.getElementById('line'));
+            // 指定图表的配置项和数据
+            var option = {
+                title: {
+                    text: 'ECharts 入门示例'
+                },
+                legend: {
+                    data:['销量']
+                },
+                xAxis: {
+                    data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+                },
+                yAxis: {},
+                series: [{
+                    name: '销量',
+                    type: 'line',
+                    data: [5, 20, 36, 10, 10, 20]
+                }]
+            };
+            // 使用刚指定的配置项和数据显示图表。
+            myChart.setOption(option);
+
+            var myChart = echarts.init(document.getElementById('pie'));
+            // 指定图表的配置项和数据
+            var option = {
+                title : {
+                    text: '某站点用户访问来源',
+                    x:'center'
+                },
+                legend: {
+                    orient: 'vertical',
+                    left: 'left',
+                    data: ['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
+                },
+                series : [
+                    {
+                        type: 'pie',
+                        radius : '55%',
+                        data:[
+                            {value:335, name:'直接访问'},
+                            {value:310, name:'邮件营销'},
+                            {value:234, name:'联盟广告'},
+                            {value:135, name:'视频广告'},
+                            {value:1548, name:'搜索引擎'}
+                        ]
+                    }
+                ]
+            };
+            // 使用刚指定的配置项和数据显示图表。
+            myChart.setOption(option);
+
+            var myChart = echarts.init(document.getElementById('line'));
+            // 指定图表的配置项和数据
+            var option = {
+                title: {
+                    text: 'ECharts 入门示例'
+                },
+                legend: {
+                    data:['销量']
+                },
+                xAxis: {
+                    data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+                },
+                yAxis: {},
+                series: [{
+                    name: '销量',
+                    type: 'line',
+                    data: [5, 20, 36, 10, 10, 20]
+                }]
+            };
+            // 使用刚指定的配置项和数据显示图表。
+            myChart.setOption(option);
+
+
+
+        });
+
+        $("#generateResumes").click(function () {
+            $("#res").empty();
+            $.post("/getResume",null,function(data){
+                console.log(data);
+                var s = "<div class=\"resumes\">\n";
+                for(var i=0;i<data.length;i++){
+                    s += "<div class=\"resume\">\n";
+                    s += "<img class=\"pic\" src=\"" + data[i].picture + "\" />\n";
+                    s += "<div class=\"info\">\n";
+                    s += "<p>name:" + data[i].username + "</p>";
+                    s += "<p>department:" + data[i].department + "</p>";
+                    s += "</div>";
+                    s += "<button class='accept' value=\"" + data[i].username + "\">Accept</button><hr />";
+                    s += "</div>\n";
+                }
+                s += "</div>\n";
+                $(s).appendTo($("#res"));
+                $(".accept").click(function (e) {
+                    e.preventDefault();
+                    $.post("/accept",{"username":this.value},function (data) {
+                        if(data == 0){
+                            alert("success");
+                        }else{
+                            alert("fail");
+                        }
+                    });
+                    $("#generateResumes").click();
+                });
+            });
+        });
     });
 
-    $("#signIn").click(function (e){
-       e.preventDefault();
-       $.post("/addRecord",{"keyword":"abcd"},function(data){
-            if(data == "success"){
-                alert("打卡成功");
-                prefix = "您今天已经打过卡了<br>";
-                $("#signIn").disable();
-            }else{
-                alert("打卡失败，请稍后重试");
-            }
-       });
-    });
 
-    function update() {
-        date = new Date();
-        $("#signIn").html(prefix + date.toLocaleDateString() + "<br>" + date.toLocaleTimeString());
-    }
 </script>
 </html>

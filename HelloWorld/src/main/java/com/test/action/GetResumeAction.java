@@ -1,9 +1,5 @@
 package com.test.action;
 
-import java.util.List;
-
-import javax.annotation.Resource;
-
 import com.test.model.User;
 import com.test.service.UserService;
 import org.springframework.stereotype.Controller;
@@ -12,16 +8,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
+import java.util.List;
+
+/**
+ * Created by Administrator on 2017/6/4.
+ */
 @Controller
-@RequestMapping("/login")
-public class LoginAction {
+@RequestMapping("/getResume")
+public class GetResumeAction {
+
     @Resource
     private UserService userService;
-
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
-    public User login(User user) {
-        User findUser = userService.findUser(user);
-        return findUser;
+    public List<User> getResume() {
+        List<User> l =  userService.findResumeList();
+        return l;
     }
 }
