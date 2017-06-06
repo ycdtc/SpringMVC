@@ -6,6 +6,6 @@
     <title>上传结果</title>
 </head>
 <body>
-${text}
+简历提交成功，请三个工作日后查询审核结果
 </body>
 </html>

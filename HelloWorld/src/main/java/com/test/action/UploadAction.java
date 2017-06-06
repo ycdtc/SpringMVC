@@ -22,28 +22,28 @@ public class UploadAction {
     @Resource
     private UserService userService;
 
-    @RequestMapping(value = "/upload.do",method = RequestMethod.POST)
+    @RequestMapping(value = "/upload",method = RequestMethod.POST)
     @ResponseBody
-    public String upload(HttpServletRequest request) {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String department = request.getParameter("department");
-        String path = request.getSession().getServletContext().getRealPath("upload");
-        String fileName = file.getOriginalFilename();
-        File targetFile = new File(path, fileName);
-        if(!targetFile.exists()){
-            targetFile.delete();
-        }
-        try {
-            file.transferTo(targetFile);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        User user = new User(username,password,department,request.getContextPath()+"/upload/"+fileName);
+    public String upload(User user) {
+//        String username = request.getParameter("username");
+//        String password = request.getParameter("password");
+//        String department = request.getParameter("department");
+//        String path = request.getSession().getServletContext().getRealPath("upload");
+//        String fileName = file.getOriginalFilename();
+//        File targetFile = new File(path, fileName);
+//        if(!targetFile.exists()){
+//            targetFile.delete();
+//        }
+//        try {
+//            file.transferTo(targetFile);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        User user = new User(username,password,department,request.getContextPath()+"/upload/"+fileName);
         if(userService.saveUser(user) == 0){
             return "success";
         }else{
-            return "result";
+            return "fail";
         }
     }
 }

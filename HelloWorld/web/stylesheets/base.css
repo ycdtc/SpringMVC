@@ -1,6 +1,7 @@
 body{
     text-align: center;
     background-color: #f7fafc;
+    font-family: Arial;
 }
 
 form{
@@ -20,12 +21,17 @@ select{
     padding: 0px 11px;
 }
 button{
-    background-color: #0371f4;
+    background-color: #4493f3;
     color: white;
     border: none;
     padding: 8px 15px;
-    margin: 0 5px;
+    margin: 0 25px;
     height:41px;
+    width:80px;
+}
+
+button:hover{
+    background-color: #2973f3;
 }
 
 #img{
@@ -47,4 +53,5 @@ button{
 }
 #error{
     color:red;
+    margin-bottom: 10px;
 }

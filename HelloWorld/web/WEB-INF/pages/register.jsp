@@ -7,16 +7,16 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 </head>
 <body>
-<form id="register-form"  action = "/upload.do" method="post" enctype="multipart/form-data">
+<form id="register-form">
     <div id="img">
         <img src="/pictures/resume.png" id="picture"/>
     </div>
     <div id="left">
-        <div>
-            <label id="error"></label>
+        <div id="error">
+            <label></label>
         </div>
         <div>
-            <input required name="username" id="username" placeholder="Username" oninvalid="this.setCustomValidity('Type your username')" oninput="this.setCustomValidity('');$('#text').html('');"/>
+            <input required name="username" id="username" placeholder="Username" oninvalid="this.setCustomValidity('Type your username')" oninput="this.setCustomValidity('');$('#error').html('');"/>
         </div>
         <div>
             <input required name="password" id="password" placeholder="Password" oninvalid="this.setCustomValidity('Type your password')" oninput="this.setCustomValidity('')"/>
@@ -54,17 +54,15 @@
         }
     });
 
-    $('#submit').click(function (e) {
-        e.preventDefault();
-        console.log($('#register-form'));
-        console.log($('#register-form').serialize());
-        $.post("/upload.do", $('#register-form').serialize() + "&file=" + $('#img').attr('src'), function (data) {
-            if(data){
+    $('#register-form').submit(function (e) {
+        $.post("/upload", $('#register-form').serialize() + "&picture=" + $('#picture').attr('src'), function (data) {
+            if(data == "fail"){
                 $('#error').html("Username has been used");
             }else{
-                location.href = "";
+                location.href = "result";
             }
         });
+        e.preventDefault();
     });
 
 
