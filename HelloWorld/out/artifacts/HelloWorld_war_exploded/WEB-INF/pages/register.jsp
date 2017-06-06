@@ -2,31 +2,38 @@
 <html>
 <head>
     <title>register</title>
-    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/stylesheets/base.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/base.css" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/register.css"/>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 </head>
 <body>
 <form id="register-form"  action = "/upload.do" method="post" enctype="multipart/form-data">
-    <img src="/pictures/resume.png" id="picture"/>
-    <div>
-        <input name="username" id="username"/>
-        <label id="text"></label>
-
+    <div id="img">
+        <img src="/pictures/resume.png" id="picture"/>
     </div>
-    <div>
-        <input name="password" id="password"/>
-    </div>
-    <div>
-        <select name="department" id="department">
-            <option value="Marketing">Marketing</option>
-            <option value="Sales">Sales</option>
-            <option value="Finance">Finance</option>
-            <option value="Human resources">Human resources</option>
-        </select>
-    </div>
-    <input type="file" name="file" id="file" hidden="hidden"/>
-    <div>
-        <button name="submit" id="submit">提交</button>
+    <div id="left">
+        <div>
+            <label id="error"></label>
+        </div>
+        <div>
+            <input required name="username" id="username" placeholder="Username" oninvalid="this.setCustomValidity('Type your username')" oninput="this.setCustomValidity('');$('#text').html('');"/>
+        </div>
+        <div>
+            <input required name="password" id="password" placeholder="Password" oninvalid="this.setCustomValidity('Type your password')" oninput="this.setCustomValidity('')"/>
+        </div>
+        <div>
+            <select required name="department" id="department" oninvalid="this.setCustomValidity('Choose your department')" onchange="this.setCustomValidity('')">
+                <option value="" disabled selected>Choose department</option>
+                <option value="Marketing">Marketing</option>
+                <option value="Sales">Sales</option>
+                <option value="Finance">Finance</option>
+                <option value="Human resources">Human resources</option>
+            </select>
+        </div>
+        <input type="file" name="file" id="file" hidden="hidden"/>
+        <div>
+            <button name="submit" id="submit">Submit</button>
+        </div>
     </div>
 </form>
 </body>
@@ -47,37 +54,20 @@
         }
     });
 
-    $('#username').change(function (e) {
-        $.post("/login", $('#register-form').serialize(), function (data) {
+    $('#submit').click(function (e) {
+        e.preventDefault();
+        console.log($('#register-form'));
+        console.log($('#register-form').serialize());
+        $("#register-form").ajaxSubmit({url:'/upload.do',type:'post',success:function (data) {
             if(data){
-                $("#text").html("用户名重复");
-                $("#text").css("color","red");
-                $("#submit").attr('disabled',true);
+                $('#error').html("Username has been used");
             }else{
-                $("#text").html("用户名可用");
-                $("#text").css("color","green");
-                $("#submit").attr('disabled',false);
+                location.href = "";
             }
-        });
+        }});
     });
 
-//    $('#submit').click(function (e) {
-//        e.preventDefault();
-//        if($("#username").val() == ""){
-//            alert("请填写用户名");
-//            return;
-//        }
-//        $.post("/upload.do", $('#register-form').serialize(), function (data) {
-//            console.log(JSON.stringify(data));
-//            if(data == 0){
-//                alert("简历提交成功");
-//                location.href = "/login";
-//            } else {
-//                alert("简历提交失败");
-//                //location.reload();
-//            }
-//        });
-//    });
+
 
 </script>
 </html>

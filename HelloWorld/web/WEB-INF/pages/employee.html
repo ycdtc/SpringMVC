@@ -1,155 +1,91 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
 <head>
     <meta charset="UTF-8">
-    <script type="text/javascript" src="../../js/jquery.min.js"></script>
-    <script  src="../../js/echarts.common.min.js"></script>
-    <title>Title</title>
+    <title>Html5页面使用javascript验证表单判断输入</title>
+    <script language="javascript">
+        function check(){
+            var pass1=document.getElementbyid("pass1");
+            var pass2=document.getElementbyid("pass2");
+            if (pass1.value!=pass2.value){
+                pass2.setCustomvalidity("密码不一致");
+            else
+                pass2.setCustomvalidity("");
+            }
+            var email=document.getElementbyid("email");
+            if (!email.checkValidity())
+                email.setCustomvalidity("请输入正确的email地址");
+        }
+    </script>
 </head>
 <body>
-<button id="generateCharts">Show Charts</button>
-<button id="generateResumes">View Resume</button>
-<div id="res"></div>
+<form id="register-form"  action = "/upload.do" method="post" enctype="multipart/form-data">
+    <div id="img">
+        <img src="/pictures/resume.png" id="picture"/>
+    </div>
+    <div id="left">
+        <div>
+            <input name="username" id="username" placeholder="Username"/>
+        </div>
+        <div>
+            <input name="password" id="password" placeholder="Password"/>
+        </div>
+        <div>
+            <select name="department" id="department">
+                <option value="" disabled selected>Choose department</option>
+                <option value="Marketing">Marketing</option>
+                <option value="Sales">Sales</option>
+                <option value="Finance">Finance</option>
+                <option value="Human resources">Human resources</option>
+            </select>
+        </div>
+        <input type="file" name="file" id="file" hidden="hidden"/>
+        <div>
+            <button name="submit" id="submit">Submit</button>
+        </div>
+    </div>
+</form>
 </body>
 <script>
-    $(function () {
-        $("#generateCharts").click(function () {
-            $("#res").empty();
-            $("#res").append($("<div id=\"bar\" style=\"width: 600px;height:400px;\"></div>"));
-            $("#res").append($("<div id=\"pie\" style=\"width: 600px;height:400px;\"></div>"));
-            $("#res").append($("<div id=\"line\" style=\"width: 600px;height:400px;\"></div>"));
-            // 基于准备好的dom，初始化echarts实例
-            var myChart = echarts.init(document.getElementById('bar'));
-            // 指定图表的配置项和数据
-            var option = {
-                title: {
-                    text: 'ECharts 入门示例'
-                },
-                legend: {
-                    data:['销量']
-                },
-                xAxis: {
-                    data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
-                },
-                yAxis: {},
-                series: [{
-                    name: '销量',
-                    type: 'bar',
-                    data: [5, 20, 36, 10, 10, 20]
-                }]
-            };
-            // 使用刚指定的配置项和数据显示图表。
-            myChart.setOption(option);
-
-            var myChart = echarts.init(document.getElementById('line'));
-            // 指定图表的配置项和数据
-            var option = {
-                title: {
-                    text: 'ECharts 入门示例'
-                },
-                legend: {
-                    data:['销量']
-                },
-                xAxis: {
-                    data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
-                },
-                yAxis: {},
-                series: [{
-                    name: '销量',
-                    type: 'line',
-                    data: [5, 20, 36, 10, 10, 20]
-                }]
-            };
-            // 使用刚指定的配置项和数据显示图表。
-            myChart.setOption(option);
-
-            var myChart = echarts.init(document.getElementById('pie'));
-            // 指定图表的配置项和数据
-            var option = {
-                title : {
-                    text: '某站点用户访问来源',
-                    x:'center'
-                },
-                legend: {
-                    orient: 'vertical',
-                    left: 'left',
-                    data: ['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
-                },
-                series : [
-                    {
-                        type: 'pie',
-                        radius : '55%',
-                        data:[
-                            {value:335, name:'直接访问'},
-                            {value:310, name:'邮件营销'},
-                            {value:234, name:'联盟广告'},
-                            {value:135, name:'视频广告'},
-                            {value:1548, name:'搜索引擎'}
-                        ]
-                    }
-                ]
-            };
-            // 使用刚指定的配置项和数据显示图表。
-            myChart.setOption(option);
-
-            var myChart = echarts.init(document.getElementById('line'));
-            // 指定图表的配置项和数据
-            var option = {
-                title: {
-                    text: 'ECharts 入门示例'
-                },
-                legend: {
-                    data:['销量']
-                },
-                xAxis: {
-                    data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
-                },
-                yAxis: {},
-                series: [{
-                    name: '销量',
-                    type: 'line',
-                    data: [5, 20, 36, 10, 10, 20]
-                }]
-            };
-            // 使用刚指定的配置项和数据显示图表。
-            myChart.setOption(option);
-
-
-
-        });
-
-        $("#generateResumes").click(function () {
-            $("#res").empty();
-            $.post("/getResume",null,function(data){
-                console.log(data);
-                var s = "<div class=\"resumes\">\n";
-                for(var i=0;i<data.length;i++){
-                    s += "<div class=\"resume\">\n";
-                    s += "<img class=\"pic\" src=\"" + data[i].picture + "\" />\n";
-                    s += "<div class=\"info\">\n";
-                    s += "<p>name:" + data[i].username + "</p>";
-                    s += "<p>department:" + data[i].department + "</p>";
-                    s += "</div>";
-                    s += "<button class='accept' value=\"" + data[i].username + "\">Accept</button><hr />";
-                    s += "</div>\n";
-                }
-                s += "</div>\n";
-                $(s).appendTo($("#res"));
-                $(".accept").click(function (e) {
-                    e.preventDefault();
-                    $.post("/accept",{"username":this.value},function (data) {
-                        if(data == 0){
-                            alert("success");
-                        }else{
-                            alert("fail");
-                        }
-                    });
-                    $("#generateResumes").click();
-                });
-            });
-        });
+    $("#picture").click(function(){
+        $("#file").click();
     });
 
+    $("input[type='file']").change(function(){
+        var file = this.files[0];
+        if (window.FileReader) {
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            //监听文件读取结束后事件
+            reader.onloadend = function (e) {
+                $("#picture").attr("src",e.target.result);    //e.target.result就是最后的路径地址
+            };
+        }
+    });
+
+    $('#submit').click(function (e) {
+        if($('#username').val() == ""){
+            $('#username')[0].setCustomValidity("Type your username");
+            alert("error");
+        }else{
+            $('#username')[0].setCustomValidity("");
+        }
+        if($('#password').val() == ""){
+            $('#password')[0].setCustomValidity("Type your password");
+        }else{
+            $('#password')[0].setCustomValidity("");
+        }
+        if($('#department').val() == ""){
+            $('#department')[0].setCustomValidity("Choose your department");
+        }else{
+            $('#department')[0].setCustomValidity("");
+        }
+        return false;
+        $.post("/login", $('#register-form').serialize(), function (data) {
+            if(data){
+                $("#username")[0].setCustomValidity("Username has been used");
+            }
+        });
+    });
 
 </script>
 </html>

@@ -12,7 +12,9 @@ import com.test.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
@@ -20,8 +22,9 @@ public class UploadAction {
     @Resource
     private UserService userService;
 
-    @RequestMapping(value = "/upload.do")
-    public String upload(@RequestParam(value = "file", required = false) MultipartFile file, HttpServletRequest request, ModelMap model) {
+    @RequestMapping(value = "/upload.do",method = RequestMethod.POST)
+    @ResponseBody
+    public String upload(HttpServletRequest request) {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String department = request.getParameter("department");
@@ -38,10 +41,8 @@ public class UploadAction {
         }
         User user = new User(username,password,department,request.getContextPath()+"/upload/"+fileName);
         if(userService.saveUser(user) == 0){
-            model.addAttribute("text","简历提交成功，请在三个工作日后重新登录");
-            return "result";
+            return "success";
         }else{
-            model.addAttribute("text","简历提交失败");
             return "result";
         }
     }

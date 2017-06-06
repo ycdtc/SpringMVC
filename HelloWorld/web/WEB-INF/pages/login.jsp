@@ -3,14 +3,15 @@
 <head>
     <title>login</title>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/base.css" />
 </head>
 <body>
 <form id="login-form">
     <div>
-        <input name="username" id="username"/>
+        <input name="username" id="username" placeholder="Username" oninvalid="this.setCustomValidity('Type your username')" required/>
     </div>
     <div>
-        <input type="password" name="password" id="password"/>
+        <input type="password" name="password" id="Password" placeholder="password" oninvalid="this.setCustomValidity('Type your password')" required/>
     </div>
     <div>
         <button name="login" id="login">登录</button>
@@ -22,7 +23,6 @@
     $(function () {
         var loginUrl = '/login';
         $('#login').click(function (e) {
-            e.preventDefault();
             $.post(loginUrl, $('#login-form').serialize(), function (data) {
                 console.log(JSON.stringify(data));
                 if(data.status == 0 && data.password == $("#password").val()){
