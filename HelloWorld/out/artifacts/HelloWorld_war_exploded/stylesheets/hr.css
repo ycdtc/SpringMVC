@@ -15,9 +15,9 @@ button:enabled{
     margin-top: 0px;
     margin-bottom: -1px;
     cursor: pointer;
-    background-color: white;
+    background-color: #E6E8EA;
     color: black;
-    border:1px solid #ccc ;
+    border:1px solid #ccc;
 }
 #bar-btn:focus,#pie-btn:focus,#line-btn:focus {
     outline:none;
@@ -34,6 +34,7 @@ button:enabled{
     margin-right: -1px;
 }
 .current{
+    background-color: white !important;
     border-right: 1px solid #fff !important;
     position: relative;
 }
