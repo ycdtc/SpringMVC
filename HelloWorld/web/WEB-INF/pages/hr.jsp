@@ -10,20 +10,47 @@
 <head>
     <script type="text/javascript" src="/js/jquery.min.js"></script>
     <script src="/js/echarts.common.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/base.css" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/hr.css" />
     <title>hr</title>
 </head>
 <body>
-<button id="generateCharts">Show Charts</button>
-<button id="generateResumes">View Resume</button>
-<div id="res"></div>
+<div id="generate">
+    <button id="generateCharts">Show charts</button>
+    <button id="generateResumes">View resumes</button>
+</div>
+<div id="charts">
+    <div id="button-group">
+    <button id="bar-btn">bar</button>
+    <button id="pie-btn">pie</button>
+    <button id="line-btn">line</button>
+    </div>
+    <div id="res">
+
+    </div>
+</div>
 </body>
 <script>
     $(function () {
+        var list = ["bar","pie","line"];
+        $("#button-group>button").click(function () {
+            var id = this.id;
+            for(var i=0;i<list.length;i++){
+                if(list[i] + "-btn" == id){
+                    $("#"+list[i]).attr("hidden",false);
+                    $("#"+list[i]+"-btn").addClass("current");
+                }else{
+                    $("#"+list[i]).attr("hidden",true);
+                    $("#"+list[i]+"-btn").removeClass("current");
+                }
+            }
+        });
+
         $("#generateCharts").click(function () {
             $("#res").empty();
             $("#res").append($("<div id=\"bar\" style=\"width: 600px;height:400px;\"></div>"));
-            $("#res").append($("<div id=\"pie\" style=\"width: 600px;height:400px;\"></div>"));
-            $("#res").append($("<div id=\"line\" style=\"width: 600px;height:400px;\"></div>"));
+            $("#res").append($("<div id=\"pie\" style=\"width: 600px;height:400px;\" hidden='hidden'></div>"));
+            $("#res").append($("<div id=\"line\" style=\"width: 600px;height:400px;\" hidden='hidden'></div>"));
             var date = new Date();
             $.post("/getData",{"prefix":date.getFullYear() + "-" + (date.getMonth() + 1)},function (data) {
                 console.log(data);

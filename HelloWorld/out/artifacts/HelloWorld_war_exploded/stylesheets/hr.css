@@ -1,0 +1,44 @@
+div{
+    margin: 0 auto;
+}
+
+button:enabled{
+    margin: 25px 0px;
+    margin-bottom: 0px;
+    width: 298px;
+    background-color: #3385ff;
+}
+#bar-btn,#pie-btn,#line-btn{
+    display: block;
+    height:70px;
+    width:150px;
+    margin-top: 0px;
+    margin-bottom: -1px;
+    cursor: pointer;
+    background-color: white;
+    color: black;
+    border:1px solid #ccc ;
+}
+#bar-btn:focus,#pie-btn:focus,#line-btn:focus {
+    outline:none;
+}
+#res,#button-group{
+    float:left;
+}
+#res{
+    background-color: white;
+    border: 1px solid #ccc;
+}
+#button-group{
+    vertical-align: top;
+    margin-right: -1px;
+}
+.current{
+    border-right: 1px solid #fff !important;
+    position: relative;
+}
+#charts{
+    margin: 100px auto;
+    width: 800px;
+    height: 400px;
+}
