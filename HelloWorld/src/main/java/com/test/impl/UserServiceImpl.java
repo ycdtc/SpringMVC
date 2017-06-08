@@ -67,5 +67,9 @@ public class UserServiceImpl implements UserService {
         }
         return data;
     }
+
+    public void removeUser(String username) {
+        userDAO.removeUser(username);
+    }
 }
 

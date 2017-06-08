@@ -58,7 +58,7 @@
 
     $('#register-form').submit(function (e) {
         console.log("src:"+ $('#picture').attr('src'));
-        $.post("/upload", $('#register-form').serialize() + "&picture=" + $('#picture').attr('src'), function (data) {
+        $.post("/upload", $('#register-form').serialize() + "&picture=" + encodeURIComponent($('#picture').attr('src')), function (data) {
             if(data == "fail"){
                 $('#error').html("Username has been used");
             }else{

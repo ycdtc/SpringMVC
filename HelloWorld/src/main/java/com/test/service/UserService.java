@@ -22,4 +22,6 @@ public interface UserService {
     void updateStatus(String username,int status);
 
     Data getUserDataByDepartment();
+
+    void removeUser(String username);
 }

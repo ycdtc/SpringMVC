@@ -54,8 +54,14 @@ public class UserDAO{
     public Integer findUserCountByDepartment(String department){
         Query query = new Query();
         query.addCriteria(new Criteria("department").is(department));
+        query.addCriteria(new Criteria("status").is(0));
         List<User> userList = mongoTemplate.find(query,User.class, USER_COLLECTION);
         return userList.size();
+    }
+
+    public void removeUser(String username){
+        User tmpUser = findUser(new User(username));
+        mongoTemplate.remove(tmpUser,USER_COLLECTION);
     }
 
 }

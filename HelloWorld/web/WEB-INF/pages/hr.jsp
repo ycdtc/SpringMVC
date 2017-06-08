@@ -129,7 +129,7 @@
                 };
                 // 使用刚指定的配置项和数据显示图表。
                 myChart.setOption(option);
-
+                $("#" + list[0] + "-btn").click();
             });
 
         });
@@ -148,12 +148,17 @@
                 var s = "<div class=\"resumes\">\n";
                 for(var i=0;i<data.length;i++){
                     s += "<div class=\"resume\">\n";
+                    s += "<div class=\"photo\">\n";
                     s += "<img class=\"pic\" src=\"" + data[i].picture + "\" />\n";
+                    s += "</div>\n";
                     s += "<div class=\"info\">\n";
-                    s += "<p>name:" + data[i].username + "</p>";
-                    s += "<p>department:" + data[i].department + "</p>";
+                    s += "<p>Name: " + data[i].username + "</p>";
+                    s += "<p>Department: " + data[i].department + "</p>";
                     s += "</div>";
-                    s += "<button class='accept' value=\"" + data[i].username + "\">Accept</button><hr />";
+                    s += "<div class=\"btn-group\">\n";
+                    s += "<button class='accept' value=\"" + data[i].username + "\">Accept</button>";
+                    s += "<button class='refuse' value=\"" + data[i].username + "\">Refuse</button>";
+                    s += "</div>\n";
                     s += "</div>\n";
                 }
                 s += "</div>\n";
@@ -169,8 +174,20 @@
                     });
                     $("#generateResumes").click();
                 });
+                $(".refuse").click(function (e) {
+                    e.preventDefault();
+                    $.post("/refuse",{"username":this.value},function (data) {
+                        if(data == 0){
+                            alert("success");
+                        }else{
+                            alert("fail");
+                        }
+                    });
+                    $("#generateResumes").click();
+                });
             });
         });
+        $("#generateCharts").click();
     });
 
 

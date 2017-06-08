@@ -68,3 +68,34 @@ li{
 #generateCharts{
     margin-left: -141px;
 }
+.resumes{
+    width: 600px;
+    border: 1px solid #ccc;
+}
+.resume{
+    border-bottom: 1px solid #ccc;
+}
+.pic{
+    height: 180px;
+    width: 130px;
+}
+.photo{
+    float:left;
+    margin-left: 80px;
+    margin-top: 30px;
+}
+.info{
+    float:left;
+    text-align: left;
+    margin-top: 100px;
+    margin-left: 40px;
+    font-size: larger;
+}
+.btn-group{
+    clear: both;
+}
+.accept:enabled,.refuse:enabled{
+    margin: 30px;
+    width: 200px;
+    border-radius: 100px;
+}
