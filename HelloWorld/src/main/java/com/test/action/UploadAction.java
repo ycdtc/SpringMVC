@@ -40,6 +40,7 @@ public class UploadAction {
 //            e.printStackTrace();
 //        }
 //        User user = new User(username,password,department,request.getContextPath()+"/upload/"+fileName);
+        System.out.println(user.getPicture());
         if(userService.saveUser(user) == 0){
             return "success";
         }else{

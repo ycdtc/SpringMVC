@@ -42,6 +42,7 @@
         $("#file").click();
     });
 
+    var s="";
     $("input[type='file']").change(function(){
         var file = this.files[0];
         if (window.FileReader) {
@@ -50,11 +51,13 @@
             //监听文件读取结束后事件
             reader.onloadend = function (e) {
                 $("#picture").attr("src",e.target.result);    //e.target.result就是最后的路径地址
+                console.log("result:"+e.target.result);
             };
         }
     });
 
     $('#register-form').submit(function (e) {
+        console.log("src:"+ $('#picture').attr('src'));
         $.post("/upload", $('#register-form').serialize() + "&picture=" + $('#picture').attr('src'), function (data) {
             if(data == "fail"){
                 $('#error').html("Username has been used");

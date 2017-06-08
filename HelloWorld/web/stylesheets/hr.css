@@ -1,19 +1,13 @@
 div{
     margin: 0 auto;
 }
-
 button:enabled{
-    margin: 25px 0px;
-    margin-bottom: 0px;
-    width: 298px;
-    background-color: #3385ff;
+    margin:0px 0px;
 }
 #bar-btn,#pie-btn,#line-btn{
     display: block;
     height:70px;
     width:150px;
-    margin-top: 0px;
-    margin-bottom: -1px;
     cursor: pointer;
     background-color: #E6E8EA;
     color: black;
@@ -39,7 +33,38 @@ button:enabled{
     position: relative;
 }
 #charts{
-    margin: 100px auto;
+    margin: 0px auto;
     width: 800px;
     height: 400px;
+}
+#content{
+    width: 1080px;
+    border: 1px solid #3385ff;
+    padding: 100px 0px;
+}
+#generate{
+    margin-top: 100px;
+}
+#btns{
+    margin: 0px auto;
+    width: 800px;
+}
+li{
+    float: left;
+    list-style: none;
+    cursor: pointer;
+    width: 130px;
+    padding: 10px;
+    margin-top: -21px;
+    background-color: #3385ff;
+    color: white;
+    border: 1px solid #3385ff;
+}
+.current-li{
+    border-bottom: 1px solid white;
+    background-color: white;
+    color: #3385ff;
+}
+#generateCharts{
+    margin-left: -141px;
 }

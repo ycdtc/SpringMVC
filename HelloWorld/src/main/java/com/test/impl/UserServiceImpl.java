@@ -29,6 +29,7 @@ public class UserServiceImpl implements UserService {
     public int saveUser(User user) {
         String id = UUID.randomUUID().toString().replaceAll("-", "");
         user.setId(id);
+        user.setStatus(1);
         if(userDAO.findUser(user) != null){
             return 1;
         }else {

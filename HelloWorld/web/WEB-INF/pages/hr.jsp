@@ -16,41 +16,46 @@
 </head>
 <body>
 <div id="generate">
-    <button id="generateCharts">Show charts</button>
-    <button id="generateResumes">View resumes</button>
+    <div id="btns">
+        <li id="generateCharts" class="li">Show charts</li>
+        <li id="generateResumes" class="li">View resumes</li>
+    </div>
 </div>
-<div id="charts">
-    <div id="button-group">
-    <button id="bar-btn">bar</button>
-    <button id="pie-btn">pie</button>
-    <button id="line-btn">line</button>
-    </div>
-    <div id="res">
+<br/>
+</div>
+<div id="content">
 
-    </div>
 </div>
 </body>
 <script>
     $(function () {
-        var list = ["bar","pie","line"];
-        $("#button-group>button").click(function () {
-            var id = this.id;
-            for(var i=0;i<list.length;i++){
-                if(list[i] + "-btn" == id){
-                    $("#"+list[i]).attr("hidden",false);
-                    $("#"+list[i]+"-btn").addClass("current");
+        var btnList = ["Charts","Resumes"];
+        $("#generateCharts").click(function () {
+            for(var i=0;i<btnList.length;i++){
+                if("generate" + btnList[i] == this.id ){
+                    $(this).addClass("current-li");
                 }else{
-                    $("#"+list[i]).attr("hidden",true);
-                    $("#"+list[i]+"-btn").removeClass("current");
+                    $("#generate" + btnList[i]).removeClass("current-li");
                 }
             }
-        });
-
-        $("#generateCharts").click(function () {
-            $("#res").empty();
+            $("#content").empty();
+            $("<div id=\"charts\"><div id=\"button-group\"> <button id=\"bar-btn\">bar</button> <button id=\"pie-btn\">pie</button> <button id=\"line-btn\">line</button> </div> <div id=\"res\"> </div></div>").appendTo($("#content"));
             $("#res").append($("<div id=\"bar\" style=\"width: 600px;height:400px;\"></div>"));
             $("#res").append($("<div id=\"pie\" style=\"width: 600px;height:400px;\" hidden='hidden'></div>"));
             $("#res").append($("<div id=\"line\" style=\"width: 600px;height:400px;\" hidden='hidden'></div>"));
+            var list = ["bar","pie","line"];
+            $("#button-group>button").click(function () {
+                var id = this.id;
+                for(var i=0;i<list.length;i++){
+                    if(list[i] + "-btn" == id){
+                        $("#"+list[i]).attr("hidden",false);
+                        $("#"+list[i]+"-btn").addClass("current");
+                    }else{
+                        $("#"+list[i]).attr("hidden",true);
+                        $("#"+list[i]+"-btn").removeClass("current");
+                    }
+                }
+            });
             var date = new Date();
             $.post("/getData",{"prefix":date.getFullYear() + "-" + (date.getMonth() + 1)},function (data) {
                 console.log(data);
@@ -130,7 +135,14 @@
         });
 
         $("#generateResumes").click(function () {
-            $("#res").empty();
+            for(var i=0;i<btnList.length;i++){
+                if("generate" + btnList[i] == this.id ){
+                    $(this).addClass("current-li");
+                }else{
+                    $("#generate" + btnList[i]).removeClass("current-li");
+                }
+            }
+            $("#content").empty();
             $.post("/getResume",null,function(data){
                 console.log(data);
                 var s = "<div class=\"resumes\">\n";
@@ -145,7 +157,7 @@
                     s += "</div>\n";
                 }
                 s += "</div>\n";
-                $(s).appendTo($("#res"));
+                $(s).appendTo($("#content"));
                 $(".accept").click(function (e) {
                     e.preventDefault();
                     $.post("/accept",{"username":this.value},function (data) {
