@@ -152,8 +152,8 @@
                     s += "<img class=\"pic\" src=\"" + data[i].picture + "\" />\n";
                     s += "</div>\n";
                     s += "<div class=\"info\">\n";
-                    s += "<p>Name:" + data[i].username + "</p>";
-                    s += "<p>Department:" + data[i].department + "</p>";
+                    s += "<p>Name: " + data[i].username + "</p>";
+                    s += "<p>Department: " + data[i].department + "</p>";
                     s += "</div>";
                     s += "<div class=\"btn-group\">\n";
                     s += "<button class='accept' value=\"" + data[i].username + "\">Accept</button>";
